@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire Certifications — ENSA Tétouan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f6f2;
+  --white: #ffffff;
+  --ink: #1a1a2e;
+  --ink2: #5a5a7a;
+  --ink3: #9090aa;
+  --accent: #2d5be3;
+  --accent-light: #e8edfb;
+  --accent2: #e85d4a;
+  --green: #1a8a5a;
+  --green-light: #e6f5ee;
+  --border: #e2e0da;
+  --border-focus: #2d5be3;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Layout */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* Header */
+.header {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(45,91,227,0.25);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: 30%;
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  background: rgba(232,93,74,0.15);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-badge {
+  background: var(--accent);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.anon-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.meta-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Progress */
+.progress-bar-outer {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #4a7ff5 100%);
+  border-radius: 100px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  width: 0%;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink3);
+  margin-bottom: 0.5rem;
+}
+
+/* Section dividers */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2rem 0 1rem;
+}
+
+.section-num {
+  background: var(--accent);
+  color: #fff;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Question cards */
+.q-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.q-card.answered {
+  border-color: #b8d4c8;
+}
+
+.q-card.conditional {
+  display: none;
+  border-left: 3px solid #f0c060;
+  background: #fffdf5;
+}
+
+.q-card.conditional.visible {
+  display: block;
+  animation: fadeSlide 0.3s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.q-num-badge {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink2);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.q-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.q-hint {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 3px;
+}
+
+.required-star {
+  color: var(--accent2);
+  margin-left: 2px;
+}
+
+/* Radio / Checkbox options */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.92rem;
+  color: var(--ink2);
+  user-select: none;
+}
+
+.opt:hover {
+  background: var(--accent-light);
+  border-color: #aabef5;
+  color: var(--ink);
+}
+
+.opt input { display: none; }
+
+.opt-box {
+  width: 18px; height: 18px;
+  border: 1.5px solid #c0c0d8;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opt.check-type .opt-box {
+  border-radius: 5px;
+}
+
+.opt.selected {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.opt.selected .opt-box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.opt.selected .opt-box::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.opt.check-type.selected .opt-box::after {
+  content: '✓';
+  font-size: 10px;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* "Autre" text field */
+.autre-field {
+  display: none;
+  margin-top: 8px;
+}
+
+.autre-field.visible { display: block; }
+
+.autre-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--bg);
+  transition: border-color 0.2s;
+}
+
+.autre-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+}
+
+/* Open text */
+.open-textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--bg);
+  resize: vertical;
+  min-height: 90px;
+  transition: border-color 0.2s;
+}
+
+.open-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+}
+
+.open-textarea::placeholder { color: var(--ink3); }
+
+/* Submit area */
+.submit-zone {
+  margin-top: 2.5rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.submit-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.submit-sub {
+  font-size: 12px;
+  color: var(--ink3);
+  margin-bottom: 1.5rem;
+}
+
+.btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-send:hover { background: #1e44c0; transform: translateY(-1px); }
+.btn-send:active { transform: scale(0.98); }
+.btn-send:disabled { background: #a0aab8; cursor: not-allowed; transform: none; }
+
+.privacy-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1rem;
+  font-size: 11px;
+  color: var(--ink3);
+}
+
+/* Thank you */
+.thankyou {
+  display: none;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.thankyou.show { display: block; animation: fadeSlide 0.5s ease; }
+
+.ty-icon {
+  width: 72px; height: 72px;
+  background: var(--green-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1.5rem;
+}
+
+.thankyou h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+  color: var(--green);
+}
+
+.thankyou p {
+  color: var(--ink2);
+  max-width: 380px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Error state */
+.error-banner {
+  display: none;
+  background: #fdf0ee;
+  border: 1px solid #f5c0b8;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--accent2);
+  margin-top: 1rem;
+}
+
+.error-banner.show { display: block; }
+
+@media (max-width: 560px) {
+  .header { padding: 1.75rem 1.5rem 1.5rem; }
+  .q-card { padding: 1.25rem; }
+  .submit-zone { padding: 1.5rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-badge">ENSA TÉTOUAN</div>
+      <div class="anon-tag">
+        <span>🔒</span> Anonyme
+      </div>
+    </div>
+    <h1>Besoins en Certifications de Formation</h1>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-dot"></span> 17 questions</div>
+      <div class="meta-item"><span class="meta-dot"></span> ~5 minutes</div>
+      <div class="meta-item"><span class="meta-dot"></span> Étude de marché académique 2026</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-info">
+    <span id="progressText">0 réponse(s) sur 10 obligatoires</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar"></div>
+  </div>
+
+  <!-- ═══ FORM ═══ -->
+  <form id="mainForm">
+    <input type="hidden" name="_subject" value="Questionnaire Certifications ENSA Tétouan 2026">
+
+    <!-- ─── SECTION 1 : Profil ─── -->
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Profil de l'étudiant</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="q-card" id="card-q1">
+      <div class="q-label">
+        <span class="q-num-badge">Q1</span>
+        <div>
+          <div class="q-text">Année d'étude <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q1')">
+          <input type="radio" name="q1" value="1ère année (GI1)">
+          <span class="opt-box"></span> 1ère année cycle ingénieur (GI1)
+        </label>
+        <label class="opt" onclick="radio(this,'q1')">
+          <input type="radio" name="q1" value="2ème année (GI2)">
+          <span class="opt-box"></span> 2ème année (GI2)
+        </label>
+        <label class="opt" onclick="radio(this,'q1')">
+          <input type="radio" name="q1" value="3ème année (GI3)">
+          <span class="opt-box"></span> 3ème année (GI3)
+        </label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card" id="card-q2">
+      <div class="q-label">
+        <span class="q-num-badge">Q2</span>
+        <div>
+          <div class="q-text">Filière <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q2')">
+          <input type="radio" name="q2" value="Génie Informatique">
+          <span class="opt-box"></span> Génie Informatique
+        </label>
+        <label class="opt" onclick="radio(this,'q2')">
+          <input type="radio" name="q2" value="Génie Industriel">
+          <span class="opt-box"></span> Génie Industriel
+        </label>
+        <label class="opt" onclick="radio(this,'q2')">
+          <input type="radio" name="q2" value="Génie Électrique">
+          <span class="opt-box"></span> Génie Électrique
+        </label>
+        <label class="opt" onclick="radio(this,'q2')">
+          <input type="radio" name="q2" value="Génie Civil">
+          <span class="opt-box"></span> Génie Civil
+        </label>
+        <label class="opt" onclick="radio(this,'q2',true)">
+          <input type="radio" name="q2" value="Autre">
+          <span class="opt-box"></span> Autre
+        </label>
+      </div>
+      <div class="autre-field" id="autre-q2">
+        <input type="text" name="q2-autre" class="autre-input" placeholder="Précisez votre filière...">
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card" id="card-q3">
+      <div class="q-label">
+        <span class="q-num-badge">Q3</span>
+        <div>
+          <div class="q-text">Avez-vous déjà effectué un stage ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q3')">
+          <input type="radio" name="q3" value="Oui">
+          <span class="opt-box"></span> Oui
+        </label>
+        <label class="opt" onclick="radio(this,'q3')">
+          <input type="radio" name="q3" value="Non">
+          <span class="opt-box"></span> Non
+        </label>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 2 : Expérience ─── -->
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Expérience avec les formations certifiantes</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card" id="card-q4">
+      <div class="q-label">
+        <span class="q-num-badge">Q4</span>
+        <div>
+          <div class="q-text">Avez-vous déjà suivi une formation certifiante ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q4'); showConditionals('q4','Oui')">
+          <input type="radio" name="q4" value="Oui">
+          <span class="opt-box"></span> Oui
+        </label>
+        <label class="opt" onclick="radio(this,'q4'); showConditionals('q4','Non')">
+          <input type="radio" name="q4" value="Non">
+          <span class="opt-box"></span> Non
+        </label>
+      </div>
+    </div>
+
+    <!-- Q5 — conditionnelle (si Q4 = Oui) -->
+    <div class="q-card conditional" id="cond-q5" data-trigger="q4" data-value="Oui">
+      <div class="q-label">
+        <span class="q-num-badge">Q5</span>
+        <div>
+          <div class="q-text">Quel type de formation avez-vous suivi ?</div>
+          <div class="q-hint">Choix multiple possible</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt check-type" onclick="check(this,'q5-online')">
+          <input type="checkbox" name="q5-online" value="En ligne (Coursera, Udemy, etc.)">
+          <span class="opt-box"></span> En ligne (Coursera, Udemy, etc.)
+        </label>
+        <label class="opt check-type" onclick="check(this,'q5-presentiel')">
+          <input type="checkbox" name="q5-presentiel" value="Présentiel">
+          <span class="opt-box"></span> Présentiel
+        </label>
+        <label class="opt check-type" onclick="check(this,'q5-hybride')">
+          <input type="checkbox" name="q5-hybride" value="Hybride">
+          <span class="opt-box"></span> Hybride
+        </label>
+      </div>
+    </div>
+
+    <!-- Q6 — conditionnelle (si Q4 = Oui) -->
+    <div class="q-card conditional" id="cond-q6" data-trigger="q4" data-value="Oui">
+      <div class="q-label">
+        <span class="q-num-badge">Q6</span>
+        <div>
+          <div class="q-text">Avez-vous obtenu un certificat reconnu ?</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q6')">
+          <input type="radio" name="q6" value="Oui">
+          <span class="opt-box"></span> Oui
+        </label>
+        <label class="opt" onclick="radio(this,'q6')">
+          <input type="radio" name="q6" value="Non">
+          <span class="opt-box"></span> Non
+        </label>
+      </div>
+    </div>
+
+    <!-- Q7 — conditionnelle (si Q4 = Oui) -->
+    <div class="q-card conditional" id="cond-q7" data-trigger="q4" data-value="Oui">
+      <div class="q-label">
+        <span class="q-num-badge">Q7</span>
+        <div>
+          <div class="q-text">Quel budget avez-vous déjà investi ?</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q7')">
+          <input type="radio" name="q7" value="0 – 200 MAD">
+          <span class="opt-box"></span> 0 – 200 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q7')">
+          <input type="radio" name="q7" value="200 – 500 MAD">
+          <span class="opt-box"></span> 200 – 500 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q7')">
+          <input type="radio" name="q7" value="500 – 1000 MAD">
+          <span class="opt-box"></span> 500 – 1000 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q7')">
+          <input type="radio" name="q7" value="Plus de 1000 MAD">
+          <span class="opt-box"></span> Plus de 1000 MAD
+        </label>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 3 : Besoins ─── -->
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Besoins et intérêt pour les certifications</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card" id="card-q8">
+      <div class="q-label">
+        <span class="q-num-badge">Q8</span>
+        <div>
+          <div class="q-text">Êtes-vous intéressé par des formations certifiantes ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q8')">
+          <input type="radio" name="q8" value="Très intéressé">
+          <span class="opt-box"></span> Très intéressé
+        </label>
+        <label class="opt" onclick="radio(this,'q8')">
+          <input type="radio" name="q8" value="Moyennement intéressé">
+          <span class="opt-box"></span> Moyennement intéressé
+        </label>
+        <label class="opt" onclick="radio(this,'q8')">
+          <input type="radio" name="q8" value="Peu intéressé">
+          <span class="opt-box"></span> Peu intéressé
+        </label>
+        <label class="opt" onclick="radio(this,'q8')">
+          <input type="radio" name="q8" value="Pas du tout">
+          <span class="opt-box"></span> Pas du tout
+        </label>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card" id="card-q9">
+      <div class="q-label">
+        <span class="q-num-badge">Q9</span>
+        <div>
+          <div class="q-text">Pourquoi souhaitez-vous obtenir des certificats ? <span class="required-star">*</span></div>
+          <div class="q-hint">Choix multiple possible</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt check-type" onclick="check(this,'q9-cv')">
+          <input type="checkbox" name="q9-cv" value="Améliorer mon CV">
+          <span class="opt-box"></span> Améliorer mon CV
+        </label>
+        <label class="opt check-type" onclick="check(this,'q9-comp')">
+          <input type="checkbox" name="q9-comp" value="Acquérir des compétences pratiques">
+          <span class="opt-box"></span> Acquérir des compétences pratiques
+        </label>
+        <label class="opt check-type" onclick="check(this,'q9-emploi')">
+          <input type="checkbox" name="q9-emploi" value="Augmenter mes chances d'emploi">
+          <span class="opt-box"></span> Augmenter mes chances d'emploi
+        </label>
+        <label class="opt check-type" onclick="check(this,'q9-pfe')">
+          <input type="checkbox" name="q9-pfe" value="Préparer un stage ou PFE">
+          <span class="opt-box"></span> Préparer un stage ou PFE
+        </label>
+        <label class="opt check-type" onclick="check(this,'q9-autre',true,'autre-q9')">
+          <input type="checkbox" name="q9-autre" value="Autre">
+          <span class="opt-box"></span> Autre
+        </label>
+      </div>
+      <div class="autre-field" id="autre-q9">
+        <input type="text" name="q9-autre-text" class="autre-input" placeholder="Précisez...">
+      </div>
+    </div>
+
+    <!-- ─── SECTION 4 : Domaines ─── -->
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Domaines de formation préférés</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-card" id="card-q10">
+      <div class="q-label">
+        <span class="q-num-badge">Q10</span>
+        <div>
+          <div class="q-text">Dans quels domaines souhaitez-vous vous certifier ? <span class="required-star">*</span></div>
+          <div class="q-hint">Choix multiple possible</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt check-type" onclick="check(this,'q10-web')">
+          <input type="checkbox" name="q10-web" value="Développement Web / Mobile">
+          <span class="opt-box"></span> Développement Web / Mobile
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-data')">
+          <input type="checkbox" name="q10-data" value="Data Science / IA">
+          <span class="opt-box"></span> Data Science / IA
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-cyber')">
+          <input type="checkbox" name="q10-cyber" value="Cybersécurité">
+          <span class="opt-box"></span> Cybersécurité
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-cloud')">
+          <input type="checkbox" name="q10-cloud" value="Cloud / DevOps">
+          <span class="opt-box"></span> Cloud / DevOps
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-reseau')">
+          <input type="checkbox" name="q10-reseau" value="Réseaux / Systèmes">
+          <span class="opt-box"></span> Réseaux / Systèmes
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-elec')">
+          <input type="checkbox" name="q10-elec" value="Électronique / Automatique">
+          <span class="opt-box"></span> Électronique / Automatique
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-mgmt')">
+          <input type="checkbox" name="q10-mgmt" value="Management / Soft skills">
+          <span class="opt-box"></span> Management / Soft skills
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-design')">
+          <input type="checkbox" name="q10-design" value="Design / Marketing digital">
+          <span class="opt-box"></span> Design / Marketing digital
+        </label>
+        <label class="opt check-type" onclick="check(this,'q10-autre',true,'autre-q10')">
+          <input type="checkbox" name="q10-autre" value="Autre">
+          <span class="opt-box"></span> Autre
+        </label>
+      </div>
+      <div class="autre-field" id="autre-q10">
+        <input type="text" name="q10-autre-text" class="autre-input" placeholder="Précisez...">
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="q-card" id="card-q11">
+      <div class="q-label">
+        <span class="q-num-badge">Q11</span>
+        <div>
+          <div class="q-text">Quel format préférez-vous ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q11')">
+          <input type="radio" name="q11" value="100% en ligne">
+          <span class="opt-box"></span> 100% en ligne
+        </label>
+        <label class="opt" onclick="radio(this,'q11')">
+          <input type="radio" name="q11" value="Présentiel">
+          <span class="opt-box"></span> Présentiel
+        </label>
+        <label class="opt" onclick="radio(this,'q11')">
+          <input type="radio" name="q11" value="Hybride">
+          <span class="opt-box"></span> Hybride
+        </label>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 5 : Budget ─── -->
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Capacité de paiement</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="q-card" id="card-q12">
+      <div class="q-label">
+        <span class="q-num-badge">Q12</span>
+        <div>
+          <div class="q-text">Quel budget êtes-vous prêt à investir pour une certification ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q12')">
+          <input type="radio" name="q12" value="Gratuit uniquement">
+          <span class="opt-box"></span> Gratuit uniquement
+        </label>
+        <label class="opt" onclick="radio(this,'q12')">
+          <input type="radio" name="q12" value="0 – 100 MAD">
+          <span class="opt-box"></span> 0 – 100 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q12')">
+          <input type="radio" name="q12" value="100 – 300 MAD">
+          <span class="opt-box"></span> 100 – 300 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q12')">
+          <input type="radio" name="q12" value="300 – 500 MAD">
+          <span class="opt-box"></span> 300 – 500 MAD
+        </label>
+        <label class="opt" onclick="radio(this,'q12')">
+          <input type="radio" name="q12" value="Plus de 500 MAD">
+          <span class="opt-box"></span> Plus de 500 MAD
+        </label>
+      </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="q-card" id="card-q13">
+      <div class="q-label">
+        <span class="q-num-badge">Q13</span>
+        <div>
+          <div class="q-text">Seriez-vous intéressé par des certifications à prix réduit ? <span class="required-star">*</span></div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q13')">
+          <input type="radio" name="q13" value="Oui">
+          <span class="opt-box"></span> Oui
+        </label>
+        <label class="opt" onclick="radio(this,'q13')">
+          <input type="radio" name="q13" value="Non">
+          <span class="opt-box"></span> Non
+        </label>
+      </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="q-card" id="card-q14">
+      <div class="q-label">
+        <span class="q-num-badge">Q14</span>
+        <div>
+          <div class="q-text">Préférez-vous payer :</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt" onclick="radio(this,'q14')">
+          <input type="radio" name="q14" value="Paiement unique">
+          <span class="opt-box"></span> Paiement unique
+        </label>
+        <label class="opt" onclick="radio(this,'q14')">
+          <input type="radio" name="q14" value="Paiement en plusieurs fois">
+          <span class="opt-box"></span> Paiement en plusieurs fois
+        </label>
+        <label class="opt" onclick="radio(this,'q14')">
+          <input type="radio" name="q14" value="Cela dépend du prix">
+          <span class="opt-box"></span> Cela dépend du prix
+        </label>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 6 : Obstacles ─── -->
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Obstacles rencontrés</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="q-card" id="card-q15">
+      <div class="q-label">
+        <span class="q-num-badge">Q15</span>
+        <div>
+          <div class="q-text">Quels sont les principaux obstacles qui vous empêchent de suivre des formations ? <span class="required-star">*</span></div>
+          <div class="q-hint">Choix multiple possible</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt check-type" onclick="check(this,'q15-prix')">
+          <input type="checkbox" name="q15-prix" value="Prix élevé">
+          <span class="opt-box"></span> Prix élevé
+        </label>
+        <label class="opt check-type" onclick="check(this,'q15-temps')">
+          <input type="checkbox" name="q15-temps" value="Manque de temps">
+          <span class="opt-box"></span> Manque de temps
+        </label>
+        <label class="opt check-type" onclick="check(this,'q15-info')">
+          <input type="checkbox" name="q15-info" value="Manque d'information">
+          <span class="opt-box"></span> Manque d'information
+        </label>
+        <label class="opt check-type" onclick="check(this,'q15-acces')">
+          <input type="checkbox" name="q15-acces" value="Difficulté d'accès">
+          <span class="opt-box"></span> Difficulté d'accès
+        </label>
+        <label class="opt check-type" onclick="check(this,'q15-motiv')">
+          <input type="checkbox" name="q15-motiv" value="Manque de motivation">
+          <span class="opt-box"></span> Manque de motivation
+        </label>
+        <label class="opt check-type" onclick="check(this,'q15-autre',true,'autre-q15')">
+          <input type="checkbox" name="q15-autre" value="Autre">
+          <span class="opt-box"></span> Autre
+        </label>
+      </div>
+      <div class="autre-field" id="autre-q15">
+        <input type="text" name="q15-autre-text" class="autre-input" placeholder="Précisez...">
+      </div>
+    </div>
+
+    <!-- ─── SECTION 7 : Attentes ─── -->
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Attentes et suggestions</div>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="q-card" id="card-q16">
+      <div class="q-label">
+        <span class="q-num-badge">Q16</span>
+        <div>
+          <div class="q-text">Qu'attendez-vous d'un service de certifications à prix réduit ?</div>
+          <div class="q-hint">Choix multiple possible</div>
+        </div>
+      </div>
+      <div class="options-list">
+        <label class="opt check-type" onclick="check(this,'q16-prix')">
+          <input type="checkbox" name="q16-prix" value="Prix accessibles">
+          <span class="opt-box"></span> Prix accessibles
+        </label>
+        <label class="opt check-type" onclick="check(this,'q16-certif')">
+          <input type="checkbox" name="q16-certif" value="Certificats reconnus">
+          <span class="opt-box"></span> Certificats reconnus
+        </label>
+        <label class="opt check-type" onclick="check(this,'q16-ped')">
+          <input type="checkbox" name="q16-ped" value="Accompagnement pédagogique">
+          <span class="opt-box"></span> Accompagnement pédagogique
+        </label>
+        <label class="opt check-type" onclick="check(this,'q16-qualite')">
+          <input type="checkbox" name="q16-qualite" value="Accès à des formations de qualité">
+          <span class="opt-box"></span> Accès à des formations de qualité
+        </label>
+        <label class="opt check-type" onclick="check(this,'q16-comm')">
+          <input type="checkbox" name="q16-comm" value="Communauté / réseau">
+          <span class="opt-box"></span> Communauté / réseau
+        </label>
+        <label class="opt check-type" onclick="check(this,'q16-autre',true,'autre-q16')">
+          <input type="checkbox" name="q16-autre" value="Autre">
+          <span class="opt-box"></span> Autre
+        </label>
+      </div>
+      <div class="autre-field" id="autre-q16">
+        <input type="text" name="q16-autre-text" class="autre-input" placeholder="Précisez...">
+      </div>
+    </div>
+
+    <!-- Q17 — Open -->
+    <div class="q-card" id="card-q17">
+      <div class="q-label">
+        <span class="q-num-badge">Q17</span>
+        <div>
+          <div class="q-text">Quelles améliorations proposeriez-vous pour faciliter l'accès aux certifications ?</div>
+          <div class="q-hint">Réponse libre — votre avis nous est précieux</div>
+        </div>
+      </div>
+      <textarea class="open-textarea" name="q17" placeholder="Partagez vos suggestions..." oninput="markOpen(17)"></textarea>
+    </div>
+
+    <!-- ─── SUBMIT ─── -->
+    <div class="submit-zone">
+      <div class="submit-title">Prêt à envoyer vos réponses ?</div>
+      <div class="submit-sub">Vérifiez que vous avez bien répondu aux questions obligatoires (marquées <span style="color:var(--accent2)">*</span>)</div>
+      <button type="submit" class="btn-send" id="submitBtn">
+        Envoyer mes réponses →
+      </button>
+      <div class="error-banner" id="errorBanner">
+        Veuillez répondre à toutes les questions obligatoires avant d'envoyer.
+      </div>
+      <div class="privacy-note">
+        🔒 Réponses 100% anonymes · Utilisées uniquement à des fins académiques
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Thank you -->
+  <div class="thankyou" id="thankyou">
+    <div class="ty-icon">✓</div>
+    <h2>Merci pour votre participation !</h2>
+    <p>Vos réponses ont bien été enregistrées. Cette enquête contribue à améliorer les conditions de formation des étudiants ingénieurs à l'ENSA Tétouan. شكراً جزيلاً !</p>
+  </div>
+
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────
+const answered = new Set();
+// Required question IDs (radio/checkbox)
+const required = ['q1','q2','q3','q4','q8','q9','q10','q11','q12','q13','q15'];
+
+// ── Radio selection ────────────────────────────────────
+function radio(el, name, isAutre = false) {
+  const group = el.closest('.options-list');
+  group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+
+  // Autre field for this card
+  const autreField = document.getElementById('autre-' + name);
+  if (autreField) autreField.classList.toggle('visible', isAutre);
+
+  answered.add(name);
+  document.getElementById('card-' + name)?.classList.add('answered');
+  updateProgress();
+}
+
+// ── Checkbox selection ─────────────────────────────────
+function check(el, name, isAutre = false, autreId = null) {
+  el.classList.toggle('selected');
+  el.querySelector('input').checked = el.classList.contains('selected');
+
+  if (isAutre && autreId) {
+    document.getElementById(autreId)?.classList.toggle('visible', el.classList.contains('selected'));
+  }
+
+  // Mark answered if at least one checked
+  const group = el.closest('.options-list');
+  const anyChecked = group.querySelectorAll('.opt.selected').length > 0;
+  const baseKey = name.split('-')[0];
+  if (anyChecked) {
+    answered.add(baseKey);
+    document.getElementById('card-' + baseKey)?.classList.add('answered');
+  } else {
+    answered.delete(baseKey);
+    document.getElementById('card-' + baseKey)?.classList.remove('answered');
+  }
+  updateProgress();
+}
+
+// ── Conditional visibility ─────────────────────────────
+function showConditionals(trigger, value) {
+  document.querySelectorAll('.conditional[data-trigger="' + trigger + '"]').forEach(card => {
+    const show = card.dataset.value === value;
+    card.classList.toggle('visible', show);
+    // If hiding, remove from answered
+    if (!show) {
+      const qIds = Array.from(card.querySelectorAll('input')).map(i => i.name.split('-')[0]);
+      qIds.forEach(id => answered.delete(id));
+    }
+  });
+  updateProgress();
+}
+
+// ── Open text ──────────────────────────────────────────
+function markOpen(n) {
+  answered.add('q' + n);
+  document.getElementById('card-q' + n)?.classList.add('answered');
+  updateProgress();
+}
+
+// ── Progress ───────────────────────────────────────────
+function updateProgress() {
+  const visibleRequired = required.filter(id => {
+    const card = document.getElementById('card-' + id);
+    const cond = document.querySelector('.conditional[id*="' + id + '"]');
+    // Always count non-conditional required
+    return true;
+  });
+  const done = required.filter(id => answered.has(id)).length;
+  const total = required.length;
+  const pct = Math.round((done / total) * 100);
+
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = done + ' réponse(s) sur ' + total + ' obligatoires';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ── Submit ─────────────────────────────────────────────
+document.getElementById('mainForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Check required
+  const missing = required.filter(id => !answered.has(id));
+  if (missing.length > 0) {
+    document.getElementById('errorBanner').classList.add('show');
+    // Scroll to first missing
+    const first = document.getElementById('card-' + missing[0]);
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  document.getElementById('errorBanner').classList.remove('show');
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+
+  const formData = new FormData(this);
+
+  // ⚠️  REMPLACE cet endpoint par ton URL Formspree personnel
+  // → Inscris-toi sur formspree.io → New Form → copie l'endpoint
+  const ENDPOINT = 'https://formspree.io/f/meevpleo';
+
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      headers: { Accept: 'application/json' }
+    });
+
+    if (res.ok) {
+      document.getElementById('mainForm').style.display = 'none';
+      document.getElementById('thankyou').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer mes réponses →';
+      alert('Erreur d\'envoi. Vérifiez que l\'endpoint Formspree est bien configuré.');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Envoyer mes réponses →';
+    alert('Connexion impossible. Vérifiez votre connexion internet.');
+  }
+});
+
+updateProgress();
+</script>
+</body>
+</html>
