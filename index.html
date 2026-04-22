@@ -1114,23 +1114,26 @@ function radio(el, name, isAutre = false) {
 
 // ── Checkbox selection ─────────────────────────────────
 function check(el, name, isAutre = false, autreId = null) {
-  el.classList.toggle('selected');
-  el.querySelector('input').checked = el.classList.contains('selected');
+  event.preventDefault();
+  const cb = el.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  el.classList.toggle('selected', cb.checked);
 
   if (isAutre && autreId) {
-    document.getElementById(autreId)?.classList.toggle('visible', el.classList.contains('selected'));
+    document.getElementById(autreId)?.classList.toggle('visible', cb.checked);
   }
 
-  // Mark answered if at least one checked
   const group = el.closest('.options-list');
   const anyChecked = group.querySelectorAll('.opt.selected').length > 0;
   const baseKey = name.split('-')[0];
   if (anyChecked) {
     answered.add(baseKey);
-    document.getElementById('card-' + baseKey)?.classList.add('answered');
+    const cardEl = document.getElementById('card-' + baseKey) || document.getElementById('cond-' + baseKey);
+    cardEl?.classList.add('answered');
   } else {
     answered.delete(baseKey);
-    document.getElementById('card-' + baseKey)?.classList.remove('answered');
+    const cardEl = document.getElementById('card-' + baseKey) || document.getElementById('cond-' + baseKey);
+    cardEl?.classList.remove('answered');
   }
   updateProgress();
 }
