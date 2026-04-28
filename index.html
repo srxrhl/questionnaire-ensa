@@ -3,1228 +3,1094 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Questionnaire Certifications — ENSA Tétouan</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<title>Enquête — Certifications Professionnelles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f7f6f2;
+  --bg: #f7f4ef;
   --white: #ffffff;
-  --ink: #1a1a2e;
-  --ink2: #5a5a7a;
-  --ink3: #9090aa;
-  --accent: #2d5be3;
-  --accent-light: #e8edfb;
-  --accent2: #e85d4a;
-  --green: #1a8a5a;
-  --green-light: #e6f5ee;
-  --border: #e2e0da;
-  --border-focus: #2d5be3;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --ink: #1a1612;
+  --ink2: #5a5248;
+  --ink3: #a09890;
+  --accent: #c0392b;
+  --accent2: #e8d5b0;
+  --accent3: #f0e8d8;
+  --gold: #b8860b;
+  --border: #e0d8cc;
+  --border2: #c8bfb0;
+  --radius: 4px;
+  --radius2: 2px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
+  font-family: var(--sans);
   background: var(--bg);
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
   min-height: 100vh;
 }
 
-/* Layout */
-.page {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 5rem;
-}
-
-/* Header */
-.header {
-  background: var(--ink);
-  color: #fff;
-  border-radius: 20px;
-  padding: 2.5rem 2.5rem 2rem;
-  margin-bottom: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.header::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: rgba(45,91,227,0.25);
-}
-
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: -60px; left: 30%;
-  width: 150px; height: 150px;
-  border-radius: 50%;
-  background: rgba(232,93,74,0.15);
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1.25rem;
-  position: relative;
-  z-index: 1;
-}
-
-.logo-badge {
-  background: var(--accent);
-  border-radius: 10px;
-  padding: 8px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #fff;
-}
-
-.anon-tag {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 100px;
-  padding: 4px 12px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.7);
-}
-
-.header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 0.75rem;
-  position: relative;
-  z-index: 1;
-}
-
-.header-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-}
-
-.meta-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-
-/* Progress */
-.progress-bar-outer {
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  height: 8px;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding: 0;
 }
-
 .progress-bar-inner {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent) 0%, #4a7ff5 100%);
-  border-radius: 100px;
-  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  height: 3px;
+  background: var(--accent);
   width: 0%;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
 }
-
-.progress-info {
+.progress-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  align-items: center;
+  padding: 10px 40px;
+}
+.progress-name {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--ink3);
-  margin-bottom: 0.5rem;
 }
-
-/* Section dividers */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 2rem 0 1rem;
-}
-
-.section-num {
-  background: var(--accent);
-  color: #fff;
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.section-title {
-  font-weight: 600;
+.progress-count {
+  font-family: var(--serif);
   font-size: 13px;
   color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+  font-style: italic;
 }
 
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Question cards */
-.q-card {
+/* ── MASTHEAD ── */
+.masthead {
   background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border-bottom: 3px double var(--ink);
+  padding: 60px 40px 50px;
+  text-align: center;
+  position: relative;
 }
-
-.q-card.answered {
-  border-color: #b8d4c8;
-}
-
-.q-card.conditional {
-  display: none;
-  border-left: 3px solid #f0c060;
-  background: #fffdf5;
-}
-
-.q-card.conditional.visible {
+.masthead::before {
+  content: '';
   display: block;
-  animation: fadeSlide 0.3s ease;
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 auto 24px;
 }
-
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+.issue-line {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 20px;
 }
-
-.q-label {
+.masthead h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 900;
+  line-height: 1.0;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.masthead h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.masthead-sub {
+  font-size: 13px;
+  color: var(--ink2);
+  font-weight: 300;
+  margin-top: 18px;
+  letter-spacing: 0.03em;
+}
+.masthead-rule {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 1rem;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
 }
-
-.q-num-badge {
+.masthead-objective {
+  max-width: 580px;
+  margin: 20px auto 0;
+  text-align: left;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 600;
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+}
+.masthead-objective p {
+  font-size: 13px;
   color: var(--ink2);
-  flex-shrink: 0;
-  margin-top: 2px;
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 14px;
 }
-
-.q-text {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--ink);
-  line-height: 1.5;
-}
-
-.q-hint {
-  font-size: 11px;
-  color: var(--ink3);
-  margin-top: 3px;
-}
-
-.required-star {
-  color: var(--accent2);
-  margin-left: 2px;
-}
-
-/* Radio / Checkbox options */
-.options-list {
+.masthead-objective ul {
+  list-style: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
-
-.opt {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  font-size: 0.92rem;
+.masthead-objective ul li {
+  font-size: 12px;
   color: var(--ink2);
-  user-select: none;
+  font-weight: 500;
+  padding-left: 16px;
+  position: relative;
 }
-
-.opt:hover {
-  background: var(--accent-light);
-  border-color: #aabef5;
-  color: var(--ink);
-}
-
-.opt input { display: none; }
-
-.opt-box {
-  width: 18px; height: 18px;
-  border: 1.5px solid #c0c0d8;
-  border-radius: 50%;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.opt.check-type .opt-box {
-  border-radius: 5px;
-}
-
-.opt.selected {
-  background: var(--accent-light);
-  border-color: var(--accent);
-  color: var(--ink);
-}
-
-.opt.selected .opt-box {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.opt.selected .opt-box::after {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #fff;
-}
-
-.opt.check-type.selected .opt-box::after {
-  content: '✓';
-  font-size: 10px;
-  border-radius: 0;
-  background: transparent;
-  color: #fff;
+.masthead-objective ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
   font-weight: 700;
 }
+.masthead-rule span {
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+.masthead-rule small {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  white-space: nowrap;
+}
 
-/* "Autre" text field */
-.autre-field {
-  display: none;
+/* ── LAYOUT ── */
+.wrapper {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── SECTION BREAK ── */
+.section { margin-top: 56px; }
+
+.section-masthead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.section-letter {
+  font-family: var(--serif);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--accent3);
+  line-height: 1;
+  font-style: italic;
+  user-select: none;
+  margin-top: -8px;
+}
+.section-info { padding-top: 4px; }
+.section-tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.section-rule {
+  height: 1px;
+  background: var(--border2);
   margin-top: 8px;
 }
 
-.autre-field.visible { display: block; }
-
-.autre-input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: var(--ink);
-  background: var(--bg);
-  transition: border-color 0.2s;
-}
-
-.autre-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: #fff;
-}
-
-/* Open text */
-.open-textarea {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: var(--ink);
-  background: var(--bg);
-  resize: vertical;
-  min-height: 90px;
-  transition: border-color 0.2s;
-}
-
-.open-textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: #fff;
-}
-
-.open-textarea::placeholder { color: var(--ink3); }
-
-/* Submit area */
-.submit-zone {
-  margin-top: 2.5rem;
+/* ── QUESTION CARD ── */
+.q-card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
+  border-top: 3px solid var(--border);
+  padding: 28px 28px 24px;
+  margin-bottom: 14px;
+  transition: border-top-color 0.3s ease;
+  position: relative;
 }
+.q-card.answered { border-top-color: var(--accent); }
+.q-card.has-error { border-top-color: #c0392b; background: #fff9f9; }
 
-.submit-title {
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: 0.4rem;
-}
-
-.submit-sub {
-  font-size: 12px;
-  color: var(--ink3);
-  margin-bottom: 1.5rem;
-}
-
-.btn-send {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  padding: 14px 36px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-send:hover { background: #1e44c0; transform: translateY(-1px); }
-.btn-send:active { transform: scale(0.98); }
-.btn-send:disabled { background: #a0aab8; cursor: not-allowed; transform: none; }
-
-.privacy-note {
+.q-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.q-index {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-top: 2px;
+  min-width: 28px;
+}
+.q-body { flex: 1; }
+.q-text {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.req { color: var(--accent); margin-left: 2px; }
+.q-meta {
+  display: flex;
   gap: 6px;
-  margin-top: 1rem;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid;
+}
+.tag-type { border-color: var(--border2); color: var(--ink3); }
+.tag-hP { border-color: #9b59b6; color: #6c3483; background: #f5eef8; }
+.tag-h1 { border-color: #c0392b; color: #922b21; background: #fdedec; }
+.tag-h2 { border-color: #d4a017; color: #9a7d0a; background: #fef9e7; }
+.tag-h3 { border-color: #1a7a4a; color: #145a32; background: #eafaf1; }
+.q-hint {
   font-size: 11px;
   color: var(--ink3);
+  font-style: italic;
+  margin-top: 4px;
 }
 
-/* Thank you */
-.thankyou {
-  display: none;
-  text-align: center;
-  padding: 4rem 2rem;
-}
+/* ── OPTIONS (radio/checkbox) ── */
+.options { display: flex; flex-direction: column; gap: 6px; }
 
-.thankyou.show { display: block; animation: fadeSlide 0.5s ease; }
-
-.ty-icon {
-  width: 72px; height: 72px;
-  background: var(--green-light);
-  border-radius: 50%;
+.opt-label {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  margin: 0 auto 1.5rem;
-}
-
-.thankyou h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  margin-bottom: 0.75rem;
-  color: var(--green);
-}
-
-.thankyou p {
+  gap: 12px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 14px;
   color: var(--ink2);
-  max-width: 380px;
-  margin: 0 auto;
-  line-height: 1.7;
+  font-weight: 400;
+  user-select: none;
+}
+.opt-label input { display: none; }
+.opt-label:hover {
+  background: var(--white);
+  border-color: var(--border2);
+  color: var(--ink);
+}
+.opt-label.selected {
+  background: var(--white);
+  border-color: var(--accent);
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
 }
 
-/* Error state */
-.error-banner {
+.opt-indicator {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border2);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.18s;
+  position: relative;
+}
+.opt-label.selected .opt-indicator {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.opt-label.selected .opt-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: white;
+}
+.opt-indicator.sq { border-radius: 2px; }
+.opt-label.selected .opt-indicator.sq::after {
+  content: '✓';
+  font-size: 10px;
+  color: white;
+  background: none;
+  width: auto; height: auto;
+  border-radius: 0;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ── LIKERT ── */
+.likert-wrap { overflow-x: auto; padding-bottom: 2px; }
+.likert-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  min-width: 480px;
+  padding-top: 4px;
+  align-items: end;
+}
+.likert-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  cursor: pointer;
+}
+.likert-item label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.likert-item input { display: none; }
+.likert-label-text {
+  font-size: 10px;
+  color: var(--ink3);
+  text-align: center;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  padding: 0 2px 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.likert-box {
+  width: 100%;
+  height: 40px;
+  border: 1.5px solid var(--border2);
+  background: var(--bg);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.likert-item.selected .likert-box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.likert-item.selected .likert-label-text { color: var(--accent); }
+.likert-item:hover .likert-box {
+  border-color: var(--ink3);
+  background: var(--accent3);
+}
+
+/* ── DICHOTOMIQUE ── */
+.dicho-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dicho-btn {
+  padding: 16px;
+  border: 1.5px solid var(--border2);
+  background: var(--bg);
+  color: var(--ink2);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.dicho-btn:hover {
+  background: var(--white);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.dicho-btn.selected-oui {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.dicho-btn.selected-non {
+  background: var(--accent3);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── ERRORS ── */
+.error-msg {
+  font-size: 11px;
+  color: var(--accent);
+  margin-top: 10px;
   display: none;
-  background: #fdf0ee;
-  border: 1px solid #f5c0b8;
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
+  font-style: italic;
+}
+.q-card.has-error .error-msg { display: block; }
+
+/* ── SUBMIT ── */
+.submit-wrap {
+  margin-top: 60px;
+  background: var(--ink);
+  padding: 48px 40px;
+  text-align: center;
+}
+.submit-wrap p {
   font-size: 12px;
-  color: var(--accent2);
-  margin-top: 1rem;
+  color: var(--ink3);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  letter-spacing: 0.03em;
+}
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  border: none;
+  padding: 16px 48px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+}
+.submit-btn:hover {
+  background: var(--accent);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.submit-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.submit-tagline {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #555;
+  margin-top: 20px;
 }
 
-.error-banner.show { display: block; }
+/* ── SUCCESS ── */
+#success-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+#success-screen.active { display: flex; }
+.success-mark {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+#success-screen h2 {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+#success-screen p {
+  font-size: 14px;
+  color: var(--ink2);
+  max-width: 440px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.5s ease both; }
+.section:nth-child(1) { animation-delay: 0.0s; }
+.section:nth-child(2) { animation-delay: 0.08s; }
+.section:nth-child(3) { animation-delay: 0.16s; }
+.section:nth-child(4) { animation-delay: 0.24s; }
 
 @media (max-width: 560px) {
-  .header { padding: 1.75rem 1.5rem 1.5rem; }
-  .q-card { padding: 1.25rem; }
-  .submit-zone { padding: 1.5rem 1.25rem; }
+  .masthead { padding: 40px 20px 36px; }
+  .progress-meta { padding: 10px 20px; }
+  .q-card { padding: 20px 16px 18px; }
+  .section-letter { font-size: 52px; }
+  .likert-grid { min-width: 420px; }
+  .wrapper { padding: 0 16px 60px; }
 }
 </style>
 </head>
 <body>
 
-<div class="page">
+<div id="success-screen">
+  <div class="success-mark">✓</div>
+  <h2>Merci pour<br><em style="color:var(--accent)">votre participation</em></h2>
+  <p>Vos réponses ont bien été enregistrées et contribuent à une recherche académique rigoureuse sur les certifications professionnelles en ingénierie.</p>
+</div>
 
-  <!-- ═══ HEADER ═══ -->
-  <div class="header">
-    <div class="header-top">
-      <div class="logo-badge">ENSA TÉTOUAN</div>
-      <div class="anon-tag">
-        <span>🔒</span> Anonyme
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar-inner" id="progress-bar"></div>
+  <div class="progress-meta">
+    <span class="progress-name">Certifications &amp; Ingénierie · 2025–2026</span>
+    <span class="progress-count" id="progress-label">0 sur 19</span>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="issue-line">Enquête quantitative · Cycle Ingénieur · Auto-administré</div>
+  <h1>Certifications<br><em>Professionnelles</em><br>&amp; Ingénierie</h1>
+  <div class="masthead-sub">Mesure des perceptions, attitudes et comportements · 19 questions · Anonyme</div>
+  <div class="masthead-rule" style="margin-top:28px;">
+    <span></span>
+    <small>Objectif de l’enquête</small>
+    <span></span>
+  </div>
+  <div class="masthead-objective">
+    <p>Dans le cadre d’un projet de recherche académique en cycle ingénieur, ce questionnaire vise à analyser les perceptions, attitudes et comportements des étudiants vis-à-vis des certifications professionnelles. L’étude s’articule autour de trois axes principaux : la valeur perçue des certifications sur l’employabilité, leur degré d’intégration dans les programmes officiels, ainsi que les facteurs de motivation et les inégalités d’accès selon le profil de l’étudiant.</p>
+    <ul>
+      <li>Vos réponses sont anonymes et strictement confidentielles</li>
+      <li>Il n’y a aucune bonne ou mauvaise réponse</li>
+      <li>La durée estimée de complétion est de 1 à 2 minutes</li>
+    </ul>
+  </div>
+  <div class="masthead-rule" style="margin-top:24px;">
+    <span></span>
+    <small>Répondez à toutes les questions</small>
+    <span></span>
+  </div>
+</div>
+
+<div class="wrapper">
+<form id="survey-form" action="https://formspree.io/f/xjgjqwzp" method="POST">
+
+  <!-- ── SECTION A ── -->
+  <div class="section">
+    <div class="section-masthead">
+      <div class="section-letter">A</div>
+      <div class="section-info">
+        <div class="section-tag">Section A · Questions 1 à 3</div>
+        <div class="section-title">Profil sociodémographique</div>
+        <div class="section-rule"></div>
       </div>
-    </div>
-    <h1>Besoins en Certifications de Formation</h1>
-    <div class="header-meta">
-      <div class="meta-item"><span class="meta-dot"></span> 17 questions</div>
-      <div class="meta-item"><span class="meta-dot"></span> ~5 minutes</div>
-      <div class="meta-item"><span class="meta-dot"></span> Étude de marché académique 2026</div>
-    </div>
-  </div>
-
-  <!-- Progress -->
-  <div class="progress-info">
-    <span id="progressText">0 réponse(s) sur 10 obligatoires</span>
-    <span id="progressPct">0%</span>
-  </div>
-  <div class="progress-bar-outer">
-    <div class="progress-bar-inner" id="progressBar"></div>
-  </div>
-
-  <!-- ═══ FORM ═══ -->
-  <form id="mainForm">
-    <input type="hidden" name="_subject" value="Questionnaire Certifications ENSA Tétouan 2026">
-
-    <!-- ─── SECTION 1 : Profil ─── -->
-    <div class="section-header">
-      <div class="section-num">1</div>
-      <div class="section-title">Profil de l'étudiant</div>
-      <div class="section-line"></div>
     </div>
 
     <!-- Q1 -->
-    <div class="q-card" id="card-q1">
-      <div class="q-label">
-        <span class="q-num-badge">Q1</span>
-        <div>
-          <div class="q-text">Année d'étude <span class="required-star">*</span></div>
+    <div class="q-card" id="card-1">
+      <div class="q-header">
+        <div class="q-index">01.</div>
+        <div class="q-body">
+          <div class="q-text">Quel est votre genre ?<span class="req">*</span></div>
+          <div class="q-meta">
+            <span class="tag tag-type">Choix unique</span>
+            <span class="tag tag-hP">Profil</span>
+          </div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q1')">
-          <input type="radio" name="q1" value="1ère année (GI1)">
-          <span class="opt-box"></span> 1ère année cycle ingénieur (GI1)
-        </label>
-        <label class="opt" onclick="radio(this,'q1')">
-          <input type="radio" name="q1" value="2ème année (GI2)">
-          <span class="opt-box"></span> 2ème année (GI2)
-        </label>
-        <label class="opt" onclick="radio(this,'q1')">
-          <input type="radio" name="q1" value="3ème année (GI3)">
-          <span class="opt-box"></span> 3ème année (GI3)
-        </label>
+      <div class="options" data-q="q1" data-type="radio">
+        <label class="opt-label"><input type="radio" name="q1" value="Homme"><div class="opt-indicator"></div>Homme</label>
+        <label class="opt-label"><input type="radio" name="q1" value="Femme"><div class="opt-indicator"></div>Femme</label>
+        <label class="opt-label"><input type="radio" name="q1" value="Autre / préfère ne pas répondre"><div class="opt-indicator"></div>Autre / préfère ne pas répondre</label>
       </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
 
     <!-- Q2 -->
-    <div class="q-card" id="card-q2">
-      <div class="q-label">
-        <span class="q-num-badge">Q2</span>
-        <div>
-          <div class="q-text">Filière <span class="required-star">*</span></div>
+    <div class="q-card" id="card-2">
+      <div class="q-header">
+        <div class="q-index">02.</div>
+        <div class="q-body">
+          <div class="q-text">Dans quelle tranche d'âge vous situez-vous ?<span class="req">*</span></div>
+          <div class="q-meta">
+            <span class="tag tag-type">Choix unique</span>
+            <span class="tag tag-hP">Profil</span>
+          </div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Génie Informatique">
-          <span class="opt-box"></span> Génie Informatique
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Science des données, Big Data et IA">
-          <span class="opt-box"></span> Science des données, Big Data et IA
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Cybersécurité">
-          <span class="opt-box"></span> Cybersécurité
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Génie des Systèmes de Télécommunications et Réseaux">
-          <span class="opt-box"></span> Génie des Systèmes de Télécommunications et Réseaux
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Génie Mécatronique">
-          <span class="opt-box"></span> Génie Mécatronique
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Génie Civil">
-          <span class="opt-box"></span> Génie Civil
-        </label>
-        <label class="opt" onclick="radio(this,'q2')">
-          <input type="radio" name="q2" value="Supply Chain Management">
-          <span class="opt-box"></span> Supply Chain Management
-        </label>
-        <label class="opt" onclick="radio(this,'q2',true)">
-          <input type="radio" name="q2" value="Autre">
-          <span class="opt-box"></span> Autre
-        </label>
+      <div class="options" data-q="q2" data-type="radio">
+        <label class="opt-label"><input type="radio" name="q2" value="Moins de 20 ans"><div class="opt-indicator"></div>Moins de 20 ans</label>
+        <label class="opt-label"><input type="radio" name="q2" value="20 – 22 ans"><div class="opt-indicator"></div>20 – 22 ans</label>
+        <label class="opt-label"><input type="radio" name="q2" value="23 – 25 ans"><div class="opt-indicator"></div>23 – 25 ans</label>
+        <label class="opt-label"><input type="radio" name="q2" value="Plus de 25 ans"><div class="opt-indicator"></div>Plus de 25 ans</label>
       </div>
-      <div class="autre-field" id="autre-q2">
-        <input type="text" name="q2-autre" class="autre-input" placeholder="Précisez votre filière...">
-      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
 
     <!-- Q3 -->
-    <div class="q-card" id="card-q3">
-      <div class="q-label">
-        <span class="q-num-badge">Q3</span>
-        <div>
-          <div class="q-text">Avez-vous déjà effectué un stage ? <span class="required-star">*</span></div>
+    <div class="q-card" id="card-3">
+      <div class="q-header">
+        <div class="q-index">03.</div>
+        <div class="q-body">
+          <div class="q-text">Dans quelle ville résidez-vous ou êtes-vous originaire ?<span class="req">*</span></div>
+          <div class="q-meta">
+            <span class="tag tag-type">Choix unique</span>
+            <span class="tag tag-hP">Profil</span>
+          </div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q3')">
-          <input type="radio" name="q3" value="Oui">
-          <span class="opt-box"></span> Oui
-        </label>
-        <label class="opt" onclick="radio(this,'q3')">
-          <input type="radio" name="q3" value="Non">
-          <span class="opt-box"></span> Non
-        </label>
+      <div class="options" data-q="q3" data-type="radio">
+        <label class="opt-label"><input type="radio" name="q3" value="Casablanca"><div class="opt-indicator"></div>Casablanca</label>
+        <label class="opt-label"><input type="radio" name="q3" value="Rabat"><div class="opt-indicator"></div>Rabat</label>
+        <label class="opt-label"><input type="radio" name="q3" value="Marrakech"><div class="opt-indicator"></div>Marrakech</label>
+        <label class="opt-label"><input type="radio" name="q3" value="Fès"><div class="opt-indicator"></div>Fès</label>
+        <label class="opt-label"><input type="radio" name="q3" value="Tanger / Tétouan"><div class="opt-indicator"></div>Tanger / Tétouan</label>
+        <label class="opt-label"><input type="radio" name="q3" value="Autre ville"><div class="opt-indicator"></div>Autre ville</label>
       </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
 
-    <!-- ─── SECTION 2 : Expérience ─── -->
-    <div class="section-header">
-      <div class="section-num">2</div>
-      <div class="section-title">Expérience avec les formations certifiantes</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="q-card" id="card-q4">
-      <div class="q-label">
-        <span class="q-num-badge">Q4</span>
-        <div>
-          <div class="q-text">Avez-vous déjà suivi une formation certifiante ? <span class="required-star">*</span></div>
+    <!-- Q6 Likert -->
+    <div class="q-card" id="card-4">
+      <div class="q-header">
+        <div class="q-index">04.</div>
+        <div class="q-body">
+          <div class="q-text">Les recruteurs valorisent davantage un candidat ingénieur titulaire d'une certification reconnue (ex. AWS, Cisco, PMP) qu'un candidat sans certification.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h1">H1</span></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q4'); showConditionals('q4','Oui')">
-          <input type="radio" name="q4" value="Oui">
-          <span class="opt-box"></span> Oui
-        </label>
-        <label class="opt" onclick="radio(this,'q4'); showConditionals('q4','Non')">
-          <input type="radio" name="q4" value="Non">
-          <span class="opt-box"></span> Non
-        </label>
-      </div>
-    </div>
-
-    <!-- Q5 — conditionnelle (si Q4 = Oui) -->
-    <div class="q-card conditional" id="cond-q5" data-trigger="q4" data-value="Oui">
-      <div class="q-label">
-        <span class="q-num-badge">Q5</span>
-        <div>
-          <div class="q-text">Quel type de formation avez-vous suivi ?</div>
-          <div class="q-hint">Choix multiple possible</div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q4" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q4" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q4" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q4" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q4" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q4" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt check-type" onclick="check(this,'q5-online')">
-          <input type="checkbox" name="q5-online" value="En ligne (Coursera, Udemy, etc.)">
-          <span class="opt-box"></span> En ligne (Coursera, Udemy, etc.)
-        </label>
-        <label class="opt check-type" onclick="check(this,'q5-presentiel')">
-          <input type="checkbox" name="q5-presentiel" value="Présentiel">
-          <span class="opt-box"></span> Présentiel
-        </label>
-        <label class="opt check-type" onclick="check(this,'q5-hybride')">
-          <input type="checkbox" name="q5-hybride" value="Hybride">
-          <span class="opt-box"></span> Hybride
-        </label>
-      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
 
-    <!-- Q6 — conditionnelle (si Q4 = Oui) -->
-    <div class="q-card conditional" id="cond-q6" data-trigger="q4" data-value="Oui">
-      <div class="q-label">
-        <span class="q-num-badge">Q6</span>
-        <div>
-          <div class="q-text">Avez-vous obtenu un certificat reconnu ?</div>
+    <!-- Q7 Dichotomique -->
+    <div class="q-card" id="card-5">
+      <div class="q-header">
+        <div class="q-index">05.</div>
+        <div class="q-body">
+          <div class="q-text">Êtes-vous actuellement titulaire d'au moins une certification professionnelle ?<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Dichotomique</span><span class="tag tag-h1">H1</span></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q6')">
-          <input type="radio" name="q6" value="Oui">
-          <span class="opt-box"></span> Oui
-        </label>
-        <label class="opt" onclick="radio(this,'q6')">
-          <input type="radio" name="q6" value="Non">
-          <span class="opt-box"></span> Non
-        </label>
+      <div class="dicho-wrap" data-q="q5" data-type="dicho">
+        <button type="button" class="dicho-btn" data-val="Oui">Oui</button>
+        <button type="button" class="dicho-btn" data-val="Non">Non</button>
       </div>
+      <input type="hidden" name="q5" id="q5-val">
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
 
-    <!-- Q7 — conditionnelle (si Q4 = Oui) -->
-    <div class="q-card conditional" id="cond-q7" data-trigger="q4" data-value="Oui">
-      <div class="q-label">
-        <span class="q-num-badge">Q7</span>
-        <div>
-          <div class="q-text">Quel budget avez-vous déjà investi ?</div>
+    <!-- Q8 Choix multiple -->
+    <div class="q-card" id="card-6">
+      <div class="q-header">
+        <div class="q-index">06.</div>
+        <div class="q-body">
+          <div class="q-text">Dans quel(s) domaine(s) une certification apporte-t-elle le plus de valeur ajoutée à un ingénieur ?<span class="req">*</span></div>
+          <div class="q-hint">Plusieurs réponses possibles</div>
+          <div class="q-meta"><span class="tag tag-type">Choix multiple</span><span class="tag tag-h1">H1</span></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q7')">
-          <input type="radio" name="q7" value="0 – 200 MAD">
-          <span class="opt-box"></span> 0 – 200 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q7')">
-          <input type="radio" name="q7" value="200 – 500 MAD">
-          <span class="opt-box"></span> 200 – 500 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q7')">
-          <input type="radio" name="q7" value="500 – 1000 MAD">
-          <span class="opt-box"></span> 500 – 1000 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q7')">
-          <input type="radio" name="q7" value="Plus de 1000 MAD">
-          <span class="opt-box"></span> Plus de 1000 MAD
-        </label>
+      <div class="options" data-q="q6" data-type="checkbox">
+        <label class="opt-label"><input type="checkbox" name="q6" value="Informatique / Cloud / Cybersécurité"><div class="opt-indicator sq"></div>Informatique / Cloud / Cybersécurité</label>
+        <label class="opt-label"><input type="checkbox" name="q6" value="Gestion de projet (PMP, PRINCE2…)"><div class="opt-indicator sq"></div>Gestion de projet (PMP, PRINCE2…)</label>
+        <label class="opt-label"><input type="checkbox" name="q6" value="Qualité et processus (ISO, Lean…)"><div class="opt-indicator sq"></div>Qualité et processus (ISO, Lean…)</label>
+        <label class="opt-label"><input type="checkbox" name="q6" value="Intelligence artificielle / Data Science"><div class="opt-indicator sq"></div>Intelligence artificielle / Data Science</label>
+        <label class="opt-label"><input type="checkbox" name="q6" value="Réseaux et télécommunications"><div class="opt-indicator sq"></div>Réseaux et télécommunications</label>
+        <label class="opt-label"><input type="checkbox" name="q6" value="Autre domaine"><div class="opt-indicator sq"></div>Autre domaine</label>
       </div>
+      <div class="error-msg">Veuillez sélectionner au moins une réponse.</div>
     </div>
 
-    <!-- ─── SECTION 3 : Besoins ─── -->
-    <div class="section-header">
-      <div class="section-num">3</div>
-      <div class="section-title">Besoins et intérêt pour les certifications</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="q-card" id="card-q8">
-      <div class="q-label">
-        <span class="q-num-badge">Q8</span>
-        <div>
-          <div class="q-text">Êtes-vous intéressé par des formations certifiantes ? <span class="required-star">*</span></div>
+    <!-- Q9 Likert -->
+    <div class="q-card" id="card-7">
+      <div class="q-header">
+        <div class="q-index">07.</div>
+        <div class="q-body">
+          <div class="q-text">La valeur d'une certification professionnelle est la même quel que soit le secteur d'activité visé après l'ingénierie.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h1">H1</span></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q8')">
-          <input type="radio" name="q8" value="Très intéressé">
-          <span class="opt-box"></span> Très intéressé
-        </label>
-        <label class="opt" onclick="radio(this,'q8')">
-          <input type="radio" name="q8" value="Moyennement intéressé">
-          <span class="opt-box"></span> Moyennement intéressé
-        </label>
-        <label class="opt" onclick="radio(this,'q8')">
-          <input type="radio" name="q8" value="Peu intéressé">
-          <span class="opt-box"></span> Peu intéressé
-        </label>
-        <label class="opt" onclick="radio(this,'q8')">
-          <input type="radio" name="q8" value="Pas du tout">
-          <span class="opt-box"></span> Pas du tout
-        </label>
-      </div>
-    </div>
-
-    <!-- Q9 -->
-    <div class="q-card" id="card-q9">
-      <div class="q-label">
-        <span class="q-num-badge">Q9</span>
-        <div>
-          <div class="q-text">Pourquoi souhaitez-vous obtenir des certificats ? <span class="required-star">*</span></div>
-          <div class="q-hint">Choix multiple possible</div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q7" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q7" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q7" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q7" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q7" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q7" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
         </div>
       </div>
-      <div class="options-list">
-        <label class="opt check-type" onclick="check(this,'q9-cv')">
-          <input type="checkbox" name="q9-cv" value="Améliorer mon CV">
-          <span class="opt-box"></span> Améliorer mon CV
-        </label>
-        <label class="opt check-type" onclick="check(this,'q9-comp')">
-          <input type="checkbox" name="q9-comp" value="Acquérir des compétences pratiques">
-          <span class="opt-box"></span> Acquérir des compétences pratiques
-        </label>
-        <label class="opt check-type" onclick="check(this,'q9-emploi')">
-          <input type="checkbox" name="q9-emploi" value="Augmenter mes chances d'emploi">
-          <span class="opt-box"></span> Augmenter mes chances d'emploi
-        </label>
-        <label class="opt check-type" onclick="check(this,'q9-pfe')">
-          <input type="checkbox" name="q9-pfe" value="Préparer un stage ou PFE">
-          <span class="opt-box"></span> Préparer un stage ou PFE
-        </label>
-        <label class="opt check-type" onclick="check(this,'q9-autre',true,'autre-q9')">
-          <input type="checkbox" name="q9-autre" value="Autre">
-          <span class="opt-box"></span> Autre
-        </label>
-      </div>
-      <div class="autre-field" id="autre-q9">
-        <input type="text" name="q9-autre-text" class="autre-input" placeholder="Précisez...">
-      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
     </div>
-
-    <!-- ─── SECTION 4 : Domaines ─── -->
-    <div class="section-header">
-      <div class="section-num">4</div>
-      <div class="section-title">Domaines de formation préférés</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q10 -->
-    <div class="q-card" id="card-q10">
-      <div class="q-label">
-        <span class="q-num-badge">Q10</span>
-        <div>
-          <div class="q-text">Dans quels domaines souhaitez-vous vous certifier ? <span class="required-star">*</span></div>
-          <div class="q-hint">Choix multiple possible</div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt check-type" onclick="check(this,'q10-web')">
-          <input type="checkbox" name="q10-web" value="Développement Web / Mobile">
-          <span class="opt-box"></span> Développement Web / Mobile
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-data')">
-          <input type="checkbox" name="q10-data" value="Data Science / IA">
-          <span class="opt-box"></span> Data Science / IA
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-cyber')">
-          <input type="checkbox" name="q10-cyber" value="Cybersécurité">
-          <span class="opt-box"></span> Cybersécurité
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-cloud')">
-          <input type="checkbox" name="q10-cloud" value="Cloud / DevOps">
-          <span class="opt-box"></span> Cloud / DevOps
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-reseau')">
-          <input type="checkbox" name="q10-reseau" value="Réseaux / Systèmes">
-          <span class="opt-box"></span> Réseaux / Systèmes
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-elec')">
-          <input type="checkbox" name="q10-elec" value="Électronique / Automatique">
-          <span class="opt-box"></span> Électronique / Automatique
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-mgmt')">
-          <input type="checkbox" name="q10-mgmt" value="Management / Soft skills">
-          <span class="opt-box"></span> Management / Soft skills
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-design')">
-          <input type="checkbox" name="q10-design" value="Design / Marketing digital">
-          <span class="opt-box"></span> Design / Marketing digital
-        </label>
-        <label class="opt check-type" onclick="check(this,'q10-autre',true,'autre-q10')">
-          <input type="checkbox" name="q10-autre" value="Autre">
-          <span class="opt-box"></span> Autre
-        </label>
-      </div>
-      <div class="autre-field" id="autre-q10">
-        <input type="text" name="q10-autre-text" class="autre-input" placeholder="Précisez...">
-      </div>
-    </div>
-
-    <!-- Q11 -->
-    <div class="q-card" id="card-q11">
-      <div class="q-label">
-        <span class="q-num-badge">Q11</span>
-        <div>
-          <div class="q-text">Quel format préférez-vous ? <span class="required-star">*</span></div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q11')">
-          <input type="radio" name="q11" value="100% en ligne">
-          <span class="opt-box"></span> 100% en ligne
-        </label>
-        <label class="opt" onclick="radio(this,'q11')">
-          <input type="radio" name="q11" value="Présentiel">
-          <span class="opt-box"></span> Présentiel
-        </label>
-        <label class="opt" onclick="radio(this,'q11')">
-          <input type="radio" name="q11" value="Hybride">
-          <span class="opt-box"></span> Hybride
-        </label>
-      </div>
-    </div>
-
-    <!-- ─── SECTION 5 : Budget ─── -->
-    <div class="section-header">
-      <div class="section-num">5</div>
-      <div class="section-title">Capacité de paiement</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q12 -->
-    <div class="q-card" id="card-q12">
-      <div class="q-label">
-        <span class="q-num-badge">Q12</span>
-        <div>
-          <div class="q-text">Quel budget êtes-vous prêt à investir pour une certification ? <span class="required-star">*</span></div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q12')">
-          <input type="radio" name="q12" value="Gratuit uniquement">
-          <span class="opt-box"></span> Gratuit uniquement
-        </label>
-        <label class="opt" onclick="radio(this,'q12')">
-          <input type="radio" name="q12" value="0 – 100 MAD">
-          <span class="opt-box"></span> 0 – 100 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q12')">
-          <input type="radio" name="q12" value="100 – 300 MAD">
-          <span class="opt-box"></span> 100 – 300 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q12')">
-          <input type="radio" name="q12" value="300 – 500 MAD">
-          <span class="opt-box"></span> 300 – 500 MAD
-        </label>
-        <label class="opt" onclick="radio(this,'q12')">
-          <input type="radio" name="q12" value="Plus de 500 MAD">
-          <span class="opt-box"></span> Plus de 500 MAD
-        </label>
-      </div>
-    </div>
-
-    <!-- Q13 -->
-    <div class="q-card" id="card-q13">
-      <div class="q-label">
-        <span class="q-num-badge">Q13</span>
-        <div>
-          <div class="q-text">Seriez-vous intéressé par des certifications à prix réduit ? <span class="required-star">*</span></div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q13')">
-          <input type="radio" name="q13" value="Oui">
-          <span class="opt-box"></span> Oui
-        </label>
-        <label class="opt" onclick="radio(this,'q13')">
-          <input type="radio" name="q13" value="Non">
-          <span class="opt-box"></span> Non
-        </label>
-      </div>
-    </div>
-
-    <!-- Q14 -->
-    <div class="q-card" id="card-q14">
-      <div class="q-label">
-        <span class="q-num-badge">Q14</span>
-        <div>
-          <div class="q-text">Préférez-vous payer :</div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt" onclick="radio(this,'q14')">
-          <input type="radio" name="q14" value="Paiement unique">
-          <span class="opt-box"></span> Paiement unique
-        </label>
-        <label class="opt" onclick="radio(this,'q14')">
-          <input type="radio" name="q14" value="Paiement en plusieurs fois">
-          <span class="opt-box"></span> Paiement en plusieurs fois
-        </label>
-        <label class="opt" onclick="radio(this,'q14')">
-          <input type="radio" name="q14" value="Cela dépend du prix">
-          <span class="opt-box"></span> Cela dépend du prix
-        </label>
-      </div>
-    </div>
-
-    <!-- ─── SECTION 6 : Obstacles ─── -->
-    <div class="section-header">
-      <div class="section-num">6</div>
-      <div class="section-title">Obstacles rencontrés</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q15 -->
-    <div class="q-card" id="card-q15">
-      <div class="q-label">
-        <span class="q-num-badge">Q15</span>
-        <div>
-          <div class="q-text">Quels sont les principaux obstacles qui vous empêchent de suivre des formations ? <span class="required-star">*</span></div>
-          <div class="q-hint">Choix multiple possible</div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt check-type" onclick="check(this,'q15-prix')">
-          <input type="checkbox" name="q15-prix" value="Prix élevé">
-          <span class="opt-box"></span> Prix élevé
-        </label>
-        <label class="opt check-type" onclick="check(this,'q15-temps')">
-          <input type="checkbox" name="q15-temps" value="Manque de temps">
-          <span class="opt-box"></span> Manque de temps
-        </label>
-        <label class="opt check-type" onclick="check(this,'q15-info')">
-          <input type="checkbox" name="q15-info" value="Manque d'information">
-          <span class="opt-box"></span> Manque d'information
-        </label>
-        <label class="opt check-type" onclick="check(this,'q15-acces')">
-          <input type="checkbox" name="q15-acces" value="Difficulté d'accès">
-          <span class="opt-box"></span> Difficulté d'accès
-        </label>
-        <label class="opt check-type" onclick="check(this,'q15-motiv')">
-          <input type="checkbox" name="q15-motiv" value="Manque de motivation">
-          <span class="opt-box"></span> Manque de motivation
-        </label>
-        <label class="opt check-type" onclick="check(this,'q15-autre',true,'autre-q15')">
-          <input type="checkbox" name="q15-autre" value="Autre">
-          <span class="opt-box"></span> Autre
-        </label>
-      </div>
-      <div class="autre-field" id="autre-q15">
-        <input type="text" name="q15-autre-text" class="autre-input" placeholder="Précisez...">
-      </div>
-    </div>
-
-    <!-- ─── SECTION 7 : Attentes ─── -->
-    <div class="section-header">
-      <div class="section-num">7</div>
-      <div class="section-title">Attentes et suggestions</div>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Q16 -->
-    <div class="q-card" id="card-q16">
-      <div class="q-label">
-        <span class="q-num-badge">Q16</span>
-        <div>
-          <div class="q-text">Qu'attendez-vous d'un service de certifications à prix réduit ?</div>
-          <div class="q-hint">Choix multiple possible</div>
-        </div>
-      </div>
-      <div class="options-list">
-        <label class="opt check-type" onclick="check(this,'q16-prix')">
-          <input type="checkbox" name="q16-prix" value="Prix accessibles">
-          <span class="opt-box"></span> Prix accessibles
-        </label>
-        <label class="opt check-type" onclick="check(this,'q16-certif')">
-          <input type="checkbox" name="q16-certif" value="Certificats reconnus">
-          <span class="opt-box"></span> Certificats reconnus
-        </label>
-        <label class="opt check-type" onclick="check(this,'q16-ped')">
-          <input type="checkbox" name="q16-ped" value="Accompagnement pédagogique">
-          <span class="opt-box"></span> Accompagnement pédagogique
-        </label>
-        <label class="opt check-type" onclick="check(this,'q16-qualite')">
-          <input type="checkbox" name="q16-qualite" value="Accès à des formations de qualité">
-          <span class="opt-box"></span> Accès à des formations de qualité
-        </label>
-        <label class="opt check-type" onclick="check(this,'q16-comm')">
-          <input type="checkbox" name="q16-comm" value="Communauté / réseau">
-          <span class="opt-box"></span> Communauté / réseau
-        </label>
-        <label class="opt check-type" onclick="check(this,'q16-autre',true,'autre-q16')">
-          <input type="checkbox" name="q16-autre" value="Autre">
-          <span class="opt-box"></span> Autre
-        </label>
-      </div>
-      <div class="autre-field" id="autre-q16">
-        <input type="text" name="q16-autre-text" class="autre-input" placeholder="Précisez...">
-      </div>
-    </div>
-
-    <!-- Q17 — Open -->
-    <div class="q-card" id="card-q17">
-      <div class="q-label">
-        <span class="q-num-badge">Q17</span>
-        <div>
-          <div class="q-text">Quelles améliorations proposeriez-vous pour faciliter l'accès aux certifications ?</div>
-          <div class="q-hint">Réponse libre — votre avis nous est précieux</div>
-        </div>
-      </div>
-      <textarea class="open-textarea" name="q17" placeholder="Partagez vos suggestions..." oninput="markOpen(17)"></textarea>
-    </div>
-
-    <!-- ─── SUBMIT ─── -->
-    <div class="submit-zone">
-      <div class="submit-title">Prêt à envoyer vos réponses ?</div>
-      <div class="submit-sub">Vérifiez que vous avez bien répondu aux questions obligatoires (marquées <span style="color:var(--accent2)">*</span>)</div>
-      <button type="submit" class="btn-send" id="submitBtn">
-        Envoyer mes réponses →
-      </button>
-      <div class="error-banner" id="errorBanner">
-        Veuillez répondre à toutes les questions obligatoires avant d'envoyer.
-      </div>
-      <div class="privacy-note">
-        🔒 Réponses 100% anonymes · Utilisées uniquement à des fins académiques
-      </div>
-    </div>
-
-  </form>
-
-  <!-- Thank you -->
-  <div class="thankyou" id="thankyou">
-    <div class="ty-icon">✓</div>
-    <h2>Merci pour votre participation !</h2>
-    <p>Vos réponses ont bien été enregistrées. Cette enquête contribue à améliorer les conditions de formation des étudiants ingénieurs à l'ENSA Tétouan. شكراً جزيلاً !</p>
   </div>
 
+  <!-- ── SECTION C ── -->
+  <div class="section">
+    <div class="section-masthead">
+      <div class="section-letter">C</div>
+      <div class="section-info">
+        <div class="section-tag">Section C · Questions 9 à 13 · H2</div>
+        <div class="section-title">Intégration curriculaire &amp; charge perçue</div>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+
+    <!-- Q10 Likert -->
+    <div class="q-card" id="card-8">
+      <div class="q-header">
+        <div class="q-index">08.</div>
+        <div class="q-body">
+          <div class="q-text">Mon programme d'ingénierie intègre suffisamment la préparation aux certifications professionnelles dans ses modules officiels.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h2">H2</span></div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q8" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q8" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q8" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q8" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q8" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q8" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
+        </div>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q11 Likert -->
+    <div class="q-card" id="card-9">
+      <div class="q-header">
+        <div class="q-index">09.</div>
+        <div class="q-body">
+          <div class="q-text">Préparer des certifications en dehors du cursus officiel représente une charge de travail supplémentaire difficile à gérer.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h2">H2</span></div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q9" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q9" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q9" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q9" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q9" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q9" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
+        </div>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q12 Dichotomique -->
+    <div class="q-card" id="card-10">
+      <div class="q-header">
+        <div class="q-index">10.</div>
+        <div class="q-body">
+          <div class="q-text">Votre établissement reconnaît-il officiellement (bonus, crédits, mention) l'obtention d'une certification professionnelle ?<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Dichotomique</span><span class="tag tag-h2">H2</span></div>
+        </div>
+      </div>
+      <div class="dicho-wrap" data-q="q10" data-type="dicho">
+        <button type="button" class="dicho-btn" data-val="Oui">Oui</button>
+        <button type="button" class="dicho-btn" data-val="Non">Non</button>
+      </div>
+      <input type="hidden" name="q10" id="q10-val">
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q13 Choix unique -->
+    <div class="q-card" id="card-11">
+      <div class="q-header">
+        <div class="q-index">11.</div>
+        <div class="q-body">
+          <div class="q-text">Sous quelle forme souhaiteriez-vous que les certifications soient intégrées dans votre cursus ?<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Choix unique</span><span class="tag tag-h2">H2</span></div>
+        </div>
+      </div>
+      <div class="options" data-q="q11" data-type="radio">
+        <label class="opt-label"><input type="radio" name="q11" value="Modules dédiés obligatoires dans le programme"><div class="opt-indicator"></div>Modules dédiés obligatoires dans le programme</label>
+        <label class="opt-label"><input type="radio" name="q11" value="Modules optionnels au choix de l'étudiant"><div class="opt-indicator"></div>Modules optionnels au choix de l'étudiant</label>
+        <label class="opt-label"><input type="radio" name="q11" value="Partenariats avec des organismes certificateurs"><div class="opt-indicator"></div>Partenariats avec des organismes certificateurs (réductions, accès)</label>
+        <label class="opt-label"><input type="radio" name="q11" value="Reconnaissance par des crédits ECTS ou équivalents"><div class="opt-indicator"></div>Reconnaissance par des crédits ECTS ou équivalents</label>
+        <label class="opt-label"><input type="radio" name="q11" value="Aucune intégration formelle souhaitée"><div class="opt-indicator"></div>Aucune intégration formelle n'est souhaitée</label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q14 Likert -->
+    <div class="q-card" id="card-12">
+      <div class="q-header">
+        <div class="q-index">12.</div>
+        <div class="q-body">
+          <div class="q-text">Les enseignants de mon établissement encouragent activement les étudiants à passer des certifications professionnelles.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h2">H2</span></div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q12" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q12" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q12" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q12" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q12" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q12" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
+        </div>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION D ── -->
+  <div class="section">
+    <div class="section-masthead">
+      <div class="section-letter">D</div>
+      <div class="section-info">
+        <div class="section-tag">Section D · Questions 14 à 19 · H3</div>
+        <div class="section-title">Motivation &amp; accès aux ressources</div>
+        <div class="section-rule"></div>
+      </div>
+    </div>
+
+    <!-- Q15 Likert -->
+    <div class="q-card" id="card-13">
+      <div class="q-header">
+        <div class="q-index">13.</div>
+        <div class="q-body">
+          <div class="q-text">Je suis fortement motivé(e) à obtenir une ou plusieurs certifications professionnelles avant la fin de mon cursus d'ingénieur.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q13" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q13" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q13" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q13" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q13" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q13" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
+        </div>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q16 Dichotomique -->
+    <div class="q-card" id="card-14">
+      <div class="q-header">
+        <div class="q-index">14.</div>
+        <div class="q-body">
+          <div class="q-text">Avez-vous déjà entamé des démarches concrètes pour préparer une certification (inscriptions, cours en ligne, livres, etc.) ?<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Dichotomique</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="dicho-wrap" data-q="q14" data-type="dicho">
+        <button type="button" class="dicho-btn" data-val="Oui">Oui</button>
+        <button type="button" class="dicho-btn" data-val="Non">Non</button>
+      </div>
+      <input type="hidden" name="q14" id="q14-val">
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q17 Choix multiple -->
+    <div class="q-card" id="card-15">
+      <div class="q-header">
+        <div class="q-index">15.</div>
+        <div class="q-body">
+          <div class="q-text">Quelles sont les principales raisons qui vous motivent à obtenir une certification ?<span class="req">*</span></div>
+          <div class="q-hint">Plusieurs réponses possibles</div>
+          <div class="q-meta"><span class="tag tag-type">Choix multiple</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="options" data-q="q15" data-type="checkbox">
+        <label class="opt-label"><input type="checkbox" name="q15" value="Améliorer mon employabilité sur le marché du travail"><div class="opt-indicator sq"></div>Améliorer mon employabilité sur le marché du travail</label>
+        <label class="opt-label"><input type="checkbox" name="q15" value="Me démarquer des autres diplômés"><div class="opt-indicator sq"></div>Me démarquer des autres diplômés</label>
+        <label class="opt-label"><input type="checkbox" name="q15" value="Approfondir mes connaissances techniques"><div class="opt-indicator sq"></div>Approfondir mes connaissances techniques</label>
+        <label class="opt-label"><input type="checkbox" name="q15" value="Répondre à une exigence ou recommandation de mon établissement"><div class="opt-indicator sq"></div>Répondre à une exigence ou recommandation de mon établissement</label>
+        <label class="opt-label"><input type="checkbox" name="q15" value="Opportunité d'emploi à l'étranger"><div class="opt-indicator sq"></div>Opportunité d'emploi à l'étranger</label>
+        <label class="opt-label"><input type="checkbox" name="q15" value="Influence de mes pairs ou de ma famille"><div class="opt-indicator sq"></div>Influence de mes pairs ou de ma famille</label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner au moins une réponse.</div>
+    </div>
+
+    <!-- Q18 Choix multiple -->
+    <div class="q-card" id="card-16">
+      <div class="q-header">
+        <div class="q-index">16.</div>
+        <div class="q-body">
+          <div class="q-text">Quels sont les principaux obstacles qui freinent votre accès aux certifications professionnelles ?<span class="req">*</span></div>
+          <div class="q-hint">Plusieurs réponses possibles</div>
+          <div class="q-meta"><span class="tag tag-type">Choix multiple</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="options" data-q="q16" data-type="checkbox">
+        <label class="opt-label"><input type="checkbox" name="q16" value="Coût élevé des examens et des formations"><div class="opt-indicator sq"></div>Coût élevé des examens et des formations</label>
+        <label class="opt-label"><input type="checkbox" name="q16" value="Manque de temps dû à la charge académique"><div class="opt-indicator sq"></div>Manque de temps dû à la charge académique</label>
+        <label class="opt-label"><input type="checkbox" name="q16" value="Manque d'information sur les certifications disponibles"><div class="opt-indicator sq"></div>Manque d'information sur les certifications disponibles</label>
+        <label class="opt-label"><input type="checkbox" name="q16" value="Absence de centres d'examen proches de ma ville"><div class="opt-indicator sq"></div>Absence de centres d'examen proches de ma ville</label>
+        <label class="opt-label"><input type="checkbox" name="q16" value="Faible maîtrise de la langue d'examen (anglais principalement)"><div class="opt-indicator sq"></div>Faible maîtrise de la langue d'examen (anglais principalement)</label>
+        <label class="opt-label"><input type="checkbox" name="q16" value="Aucun obstacle particulier"><div class="opt-indicator sq"></div>Aucun obstacle particulier</label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner au moins une réponse.</div>
+    </div>
+
+    <!-- Q19 Choix unique -->
+    <div class="q-card" id="card-17">
+      <div class="q-header">
+        <div class="q-index">17.</div>
+        <div class="q-body">
+          <div class="q-text">Quelle est la principale source d'information par laquelle vous avez découvert les certifications professionnelles ?<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Choix unique</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="options" data-q="q17" data-type="radio">
+        <label class="opt-label"><input type="radio" name="q17" value="Réseaux sociaux (LinkedIn, YouTube, etc.)"><div class="opt-indicator"></div>Réseaux sociaux (LinkedIn, YouTube, etc.)</label>
+        <label class="opt-label"><input type="radio" name="q17" value="Camarades ou pairs"><div class="opt-indicator"></div>Camarades ou pairs</label>
+        <label class="opt-label"><input type="radio" name="q17" value="Enseignants ou encadrants"><div class="opt-indicator"></div>Enseignants ou encadrants</label>
+        <label class="opt-label"><input type="radio" name="q17" value="Entreprises lors de stages ou forums"><div class="opt-indicator"></div>Entreprises lors de stages ou forums</label>
+        <label class="opt-label"><input type="radio" name="q17" value="Je n'ai pas encore découvert ce domaine"><div class="opt-indicator"></div>Je n'ai pas encore découvert ce domaine</label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- Q20 Likert -->
+    <div class="q-card" id="card-18">
+      <div class="q-header">
+        <div class="q-index">18.</div>
+        <div class="q-body">
+          <div class="q-text">L'accès aux ressources de préparation aux certifications (matériel, plateformes, financement) est équitable pour tous les étudiants ingénieurs, quelle que soit leur ville d'origine.<span class="req">*</span></div>
+          <div class="q-meta"><span class="tag tag-type">Likert 5 pts</span><span class="tag tag-h3">H3</span></div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <div class="likert-grid" data-q="q18" data-type="likert">
+          <div class="likert-item"><label><input type="radio" name="q18" value="Tout à fait d'accord"><div class="likert-label-text">Tout à fait d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q18" value="Plutôt d'accord"><div class="likert-label-text">Plutôt d'accord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q18" value="Neutre"><div class="likert-label-text">Neutre</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q18" value="Plutôt en désaccord"><div class="likert-label-text">Plutôt en désaccord</div><div class="likert-box"></div></label></div>
+          <div class="likert-item"><label><input type="radio" name="q18" value="Pas du tout d'accord"><div class="likert-label-text">Pas du tout d'accord</div><div class="likert-box"></div></label></div>
+        </div>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <p>Toutes vos réponses sont strictement anonymes et utilisées uniquement à des fins de recherche académique.<br>Vérifiez l'intégralité de vos réponses avant de soumettre.</p>
+    <button type="submit" class="submit-btn">
+      Soumettre mes réponses
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+    <div class="submit-tagline">Enquête quantitative · 2025–2026 · Cycle Ingénieur</div>
+  </div>
+
+</form>
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────
+const TOTAL = 19;
 const answered = new Set();
-// Required question IDs (radio/checkbox)
-const required = ['q1','q2','q3','q4','q8','q9','q10','q11','q12','q13','q15'];
 
-// ── Radio selection ────────────────────────────────────
-function radio(el, name, isAutre = false) {
-  const group = el.closest('.options-list');
-  group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  el.querySelector('input').checked = true;
-
-  // Autre field for this card
-  const autreField = document.getElementById('autre-' + name);
-  if (autreField) autreField.classList.toggle('visible', isAutre);
-
-  answered.add(name);
-  document.getElementById('card-' + name)?.classList.add('answered');
-  updateProgress();
-}
-
-// ── Checkbox selection ─────────────────────────────────
-function check(el, name, isAutre = false, autreId = null) {
-  event.preventDefault();
-  const cb = el.querySelector('input[type="checkbox"]');
-  cb.checked = !cb.checked;
-  el.classList.toggle('selected', cb.checked);
-
-  if (isAutre && autreId) {
-    document.getElementById(autreId)?.classList.toggle('visible', cb.checked);
-  }
-
-  const group = el.closest('.options-list');
-  const anyChecked = group.querySelectorAll('.opt.selected').length > 0;
-  const baseKey = name.split('-')[0];
-  if (anyChecked) {
-    answered.add(baseKey);
-    const cardEl = document.getElementById('card-' + baseKey) || document.getElementById('cond-' + baseKey);
-    cardEl?.classList.add('answered');
-  } else {
-    answered.delete(baseKey);
-    const cardEl = document.getElementById('card-' + baseKey) || document.getElementById('cond-' + baseKey);
-    cardEl?.classList.remove('answered');
-  }
-  updateProgress();
-}
-
-// ── Conditional visibility ─────────────────────────────
-function showConditionals(trigger, value) {
-  document.querySelectorAll('.conditional[data-trigger="' + trigger + '"]').forEach(card => {
-    const show = card.dataset.value === value;
-    card.classList.toggle('visible', show);
-    // If hiding, remove from answered
-    if (!show) {
-      const qIds = Array.from(card.querySelectorAll('input')).map(i => i.name.split('-')[0]);
-      qIds.forEach(id => answered.delete(id));
-    }
-  });
-  updateProgress();
-}
-
-// ── Open text ──────────────────────────────────────────
-function markOpen(n) {
-  answered.add('q' + n);
-  document.getElementById('card-q' + n)?.classList.add('answered');
-  updateProgress();
-}
-
-// ── Progress ───────────────────────────────────────────
 function updateProgress() {
-  const visibleRequired = required.filter(id => {
-    const card = document.getElementById('card-' + id);
-    const cond = document.querySelector('.conditional[id*="' + id + '"]');
-    // Always count non-conditional required
-    return true;
-  });
-  const done = required.filter(id => answered.has(id)).length;
-  const total = required.length;
-  const pct = Math.round((done / total) * 100);
-
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressText').textContent = done + ' réponse(s) sur ' + total + ' obligatoires';
-  document.getElementById('progressPct').textContent = pct + '%';
+  const pct = Math.round((answered.size / TOTAL) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = answered.size + ' sur ' + TOTAL;
 }
 
-// ── Submit ─────────────────────────────────────────────
-document.getElementById('mainForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+function markAnswered(qNum, card) {
+  answered.add(qNum);
+  card.classList.add('answered');
+  card.classList.remove('has-error');
+  updateProgress();
+}
 
-  // Check required
-  const missing = required.filter(id => !answered.has(id));
-  if (missing.length > 0) {
-    document.getElementById('errorBanner').classList.add('show');
-    // Scroll to first missing
-    const first = document.getElementById('card-' + missing[0]);
-    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-
-  document.getElementById('errorBanner').classList.remove('show');
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = 'Envoi en cours...';
-
-  const formData = new FormData(this);
-
-  // ⚠️  REMPLACE cet endpoint par ton URL Formspree personnel
-  // → Inscris-toi sur formspree.io → New Form → copie l'endpoint
-  const ENDPOINT = 'https://formspree.io/f/meevpleo';
-
-  try {
-    const res = await fetch(ENDPOINT, {
-      method: 'POST',
-      body: formData,
-      headers: { Accept: 'application/json' }
+document.querySelectorAll('.options').forEach(group => {
+  const type = group.dataset.type;
+  const qNum = group.dataset.q;
+  const card = group.closest('.q-card');
+  const labels = group.querySelectorAll('.opt-label');
+  labels.forEach(label => {
+    label.querySelector('input').addEventListener('change', () => {
+      if (type === 'radio') labels.forEach(l => l.classList.remove('selected'));
+      label.classList.toggle('selected', label.querySelector('input').checked || type === 'radio');
+      if (type === 'radio') label.classList.add('selected');
+      if (group.querySelector('input:checked')) markAnswered(qNum, card);
     });
-
-    if (res.ok) {
-      document.getElementById('mainForm').style.display = 'none';
-      document.getElementById('thankyou').classList.add('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Envoyer mes réponses →';
-      alert('Erreur d\'envoi. Vérifiez que l\'endpoint Formspree est bien configuré.');
-    }
-  } catch {
-    btn.disabled = false;
-    btn.textContent = 'Envoyer mes réponses →';
-    alert('Connexion impossible. Vérifiez votre connexion internet.');
-  }
+  });
 });
 
-updateProgress();
+document.querySelectorAll('.likert-grid').forEach(grid => {
+  const qNum = grid.dataset.q;
+  const card = grid.closest('.q-card');
+  const items = grid.querySelectorAll('.likert-item');
+  items.forEach(item => {
+    const inp = item.querySelector('input');
+    const clickFn = () => {
+      items.forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      inp.checked = true;
+      markAnswered(qNum, card);
+    };
+    item.querySelector('.likert-box').addEventListener('click', clickFn);
+    item.querySelector('label').addEventListener('click', clickFn);
+  });
+});
+
+document.querySelectorAll('.dicho-wrap').forEach(wrap => {
+  const qNum = wrap.dataset.q;
+  const card = wrap.closest('.q-card');
+  const hidden = document.getElementById(qNum + '-val');
+  const btns = wrap.querySelectorAll('.dicho-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.className = 'dicho-btn');
+      btn.classList.add(btn.dataset.val === 'Oui' ? 'selected-oui' : 'selected-non');
+      hidden.value = btn.dataset.val;
+      markAnswered(qNum, card);
+    });
+  });
+});
+
+document.getElementById('survey-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  let valid = true, firstError = null;
+  for (let i = 1; i <= TOTAL; i++) {
+    const card = document.getElementById('card-' + i);
+    if (!card) continue;
+    const og = card.querySelector('.options');
+    const lg = card.querySelector('.likert-grid');
+    const dw = card.querySelector('.dicho-wrap');
+    let ok = false;
+    if (og) ok = !!og.querySelector('input:checked');
+    else if (lg) ok = !!lg.querySelector('input:checked');
+    else if (dw) { const h = document.getElementById('q' + i + '-val'); ok = h && h.value !== ''; }
+    if (!ok) { card.classList.add('has-error'); if (!firstError) firstError = card; valid = false; }
+    else card.classList.remove('has-error');
+  }
+  if (!valid) { firstError.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  const btn = this.querySelector('.submit-btn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+    if (res.ok) { document.getElementById('success-screen').classList.add('active'); window.scrollTo(0,0); }
+    else { alert('Une erreur est survenue. Veuillez réessayer.'); btn.textContent = 'Soumettre mes réponses'; btn.disabled = false; }
+  } catch { alert('Erreur réseau.'); btn.textContent = 'Soumettre mes réponses'; btn.disabled = false; }
+});
 </script>
 </body>
 </html>
